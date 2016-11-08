@@ -1,0 +1,55 @@
+//用户信息:user
+create table user1(
+	userid int PRIMARY KEY,    //用户id
+	name VARCHAR(30),	   //用户姓名	
+	age int,		   //用户年龄	
+	sfz varchar(14),	   //身份证号		
+	weixing VARCHAR(30),       //微信号
+	weixingpsd VARCHAR(30),    //微信密码
+	email VARCHAR(30),         //email 
+	emailpsd VARCHAR(30),      //email密码
+	phone VARCHAR(11),         //手机号
+	phonepsd VARCHAR(30),      //手机密码   
+	money double               //剩余金额          
+	
+);
+
+//单车基本信息表:danche
+create table danche(
+	dcid int primary key,   //单车id
+	dcdate VARCHAR(40), 	//单车生产日期
+	dcstate int             //单车使用状态（1.使用 0.未使用）
+	
+);
+
+//充值表:chongzhi
+create table chongzhi(
+	czid int primary key，//充值记录编号
+	userid int,           //充值用户id
+	money double,	      //充值金额	
+	date varchar(30)      //充值时间
+
+);
+
+//单车gsp记录表:gsp 
+create table gsp(
+	gspid int,         //gsp记录编号
+	dcid int，         //单车id	
+	userid varchar(30) //使用用户id
+	shijian int        //使用时间
+	start varchar(50)  //使用开始地点
+	end varchar(50)    // 使用结束地点
+ 	
+
+);	
+
+
+
+
+
+
+
+
+
+
+
