@@ -1,0 +1,30 @@
+package ms1;
+
+public class Test {
+	public static void main(String[] args) {
+		Integer[] foo = {9,38,5,97,76,-13,27,49,-78,34,-1};
+		//冒泡排序
+		for(int i=0;i<foo.length-1;i++){
+			for(int j=0;j<foo.length-1-i;j++){
+				if(foo[j]>foo[j+1]){
+					int t = foo[j];
+					foo[j]=foo[j+1];
+					foo[j+1]=t;	
+					
+				}
+			}
+		}
+		//遍历数组
+		for(Integer i:foo){
+			System.out.println(i);
+		}
+		
+		
+		
+		
+		
+		
+	}
+	
+
+}
