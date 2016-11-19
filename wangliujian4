@@ -1,0 +1,59 @@
+--用户的基本信息
+
+create sequence user_seq start with 1000;
+
+create table user_info(
+  user_id number(32) not null primary key,
+  name VARCHAR(32) not null,
+  sex number(1),
+  wechat varchar2(20),
+  pwd_WC varchar2(20),
+	Email varchar2(20),
+	pwd_E varchar2(20),
+	phone varchar2(20),
+	pwd_P varchar2(20)
+  
+);
+
+--单车的信息
+create sequence bicycle_seq start with 1000;
+
+create table bicycle_info(
+  bicycle_id number(32) not null primary key,
+  two_microcode blob not null,
+  --use_date date not null,
+  --use_year number(10)
+  status int--单车现在的状态（1：未使用；2：使用中）
+);
+
+--用户充值记录
+create sequence recharge_seq start with 1000;
+
+create table recharge_info(
+  recharge_id number(32) not null primary key,
+  recharge_user_id references user_info(user_id),
+  money number(6,2) not null,
+  recharge_date date
+);
+
+--用户骑行记录
+create sequence cycle_seq start with 1000;
+
+create table cycle_info(
+  cycle_id number(32) not null primary key,
+  cycle_user_id references user_info(user_id),
+  cycle_bicycle_id references bicycle_info(bicycle_id),
+  satrt_date date,
+  end_date date
+);
+
+--单车位置
+create sequence location_seq start with 1000;
+
+create table location_info(
+  location_id number(32) not null primary key,
+  location_bicycle_id references bicycle_info(bicycle_id),
+  x number(10,2),
+  y number(10,2),
+  h number(10,2)
+);
