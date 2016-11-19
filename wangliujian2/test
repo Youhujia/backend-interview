@@ -1,0 +1,31 @@
+package second;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ArrayList l1=new ArrayList();
+		
+		
+		for(int j=1;j<=10;j++){
+			int i=(int) (Math.random()*42+18);
+			if(j==10){
+				l1.add(new User("user "+j, i));
+			}else{
+				l1.add(new User("user 0"+j, i));
+			}
+		}
+		
+		Collections.sort(l1);
+	    for (Object object : l1) {
+			System.out.println(object);
+		}
+      System.out.println();
+     
+      
+	}
+
+}
