@@ -1,0 +1,91 @@
+//创建自行车实体类
+package com.java.bean;
+
+public class Bike {
+	private String id;
+	private String bikekey;
+	private String gps;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getBikekey() {
+		return bikekey;
+	}
+	public void setBikekey(String bikekey) {
+		this.bikekey = bikekey;
+	}
+	public String getGps() {
+		return gps;
+	}
+	public void setGps(String gps) {
+		this.gps = gps;
+	}
+	
+}
+
+//接口
+package com.java.mapper;
+
+import java.util.List;
+
+public interface Dao<T,ID> {
+	
+	public void create(T t);
+	public void delete(ID id);
+	public void update(T t);
+	
+	public T find_one(ID id);
+	public List<T> getAll(String con);
+	
+}
+import com.java.bean.Bike;
+
+public interface BikeMapper extends Dao<Bike, String> {
+	public void lock(String id);
+	public void unlock(String id);
+}
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.MyUserMapper">	
+	
+
+	<insert id="create" parameterType="bike" >
+		INSERT INTO MY_BIKE(ID,BIKEKEY,GPS)
+		VALUES (#{id},#{bikekey},#{gps})
+	</insert>
+	 
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM MY_BIKE
+		WHERE ID=#{id}
+	</delete>
+ 	
+ 	<update id="update" parameterType="bike">
+ 		UPDATE MY_BIKE SET BIKEKEY=#{bikekey},GPS=#{gps}
+ 		WHERE ID=#{id}
+ 	</update> 
+ 	
+ 	<select id="getAll"  resultType="bike">
+ 		SELECT * FROM MY_BIKE 
+ 	</select>
+ 	
+ 	<select id="find_one" parameterType="String" resultType="bike">
+ 		SELECT * FROM MY_BIKE WHERE ID=#{id}
+ 	</select>
+	
+	<update id="lock" parameterType="String">
+ 		UPDATE MY_BIKE SET BIKEKEY=#{0}
+ 		WHERE ID=#{id}
+ 	</update> 
+ 	
+ 	<update id="unlock" parameterType="String">
+ 		UPDATE MY_BIKE SET BIKEKEY=#{1}
+ 		WHERE ID=#{id}
+ 	</update> 
+</mapper>
