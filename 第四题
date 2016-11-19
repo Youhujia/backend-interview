@@ -1,0 +1,64 @@
+用户表 users
+用户id：userId int primary key
+用户名：username varchar(30)
+密码：password varchar(30)
+微信号：weiXin varcahr（30）
+邮箱号：email varchar（30）
+电话号：phonenum int 
+余额：money int
+
+create table users(
+userId int primary key,
+userName varchar(30) not NULL,
+password varchar(20),
+weiXin varchar(30),
+email varchar(30),
+phonenum INT,
+money int default 0
+)
+
+
+
+自行车表 bikes
+自行车id：BikeId int primary key
+车锁：BikeKey int
+Gps记录：Gps int
+
+CREATE TABLE bikes (
+  bikeId int PRIMARY KEY,
+  bikeKey int  NOT NULL default '0',
+  gps int(11) default NULL
+)
+
+
+充值记录 Recharge
+充值id：RechargeId primary key
+用户id：UserId references Users(UserId)
+充值金额：Money int 
+充值时间：Date date
+
+Create teble recharge(
+	RechargeId int primary key,
+	UserId int not null,
+	Money int default 0,
+	Date varchar(30),
+	FOREIGN key(userId) REFERENCES users(userId)
+)
+
+
+骑车信息表 ByBike
+骑行id：ByBikeId int primary key,
+Gps记录：GPS int ,
+用户id：UserId references Users(UserId),
+自行车id：BikeId references bikes (BikeId),
+骑车时间：Date Date,
+
+create table Bybike(
+bybike int PRIMARY KEY,
+UserId int not null,
+bikeId int not null,
+gps INT,
+date varchar(30),
+FOREIGN key(userId) REFERENCES users(userId),
+FOREIGN key(bikeId) references bikes(bikeId)
+)
