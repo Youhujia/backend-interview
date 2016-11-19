@@ -1,0 +1,49 @@
+package third;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+
+public class List {
+
+	
+	public static LinkedList Li(LinkedList ar)
+	{
+		LinkedList list1 = new LinkedList();
+
+		Iterator it= ar.iterator();
+	     while(it.hasNext())
+	     {
+	    	 Object obj=it.next();
+	    	 if(!(list1.contains(obj)))
+	    	 {
+	    		 list1.add(obj);
+	    	 }
+	     }
+			return list1;
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		LinkedList list = new LinkedList();
+		LinkedList  m=new LinkedList();
+		m.add(new User("zhangsan", 18));
+		m.add(new User("zhangsan", 18));
+		m.add(new User("zhangsan2", 18));
+		m.add(new User("zhangsan3", 18));
+		LinkedList  list23=Li(m);
+		for (Object object : list23) {
+			System.out.println(object);
+		}
+		list.add("ZHANGSAN");
+		list.add("ZHANGSAN");
+		list.add("LISI");
+		list.add("WANGWU");
+    
+		LinkedList  list2=Li(list);
+		for (Object object : list2) {
+			System.out.println(object);
+		}
+	}
+
+}
