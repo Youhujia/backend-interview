@@ -1,0 +1,66 @@
+
+package aa;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+public class ObjectSort {
+
+	public static void main(String[] args) {
+
+		List<User> userList = new ArrayList<>();
+
+		User user1 = new User("user01", getRandomNum());
+		User user2 = new User("user02", getRandomNum());
+		User user3 = new User("user03", getRandomNum());
+		User user4 = new User("user04", getRandomNum());
+		User user5 = new User("user05", getRandomNum());
+		User user6 = new User("user06", getRandomNum());
+		User user7 = new User("user07", getRandomNum());
+		User user8 = new User("user08", getRandomNum());
+		User user9 = new User("user09", getRandomNum());
+		User user10 = new User("user010", getRandomNum());
+
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user3);
+		userList.add(user4);
+		userList.add(user5);
+		userList.add(user6);
+		userList.add(user7);
+		userList.add(user8);
+		userList.add(user9);
+		userList.add(user10);
+		
+		Iterator i=userList.iterator();
+		
+		Collections.sort(userList, new Comparator<User>() {
+
+			@Override
+			public int compare(User o1, User o2) {
+				// 按照学生的年龄进行升序排列
+				if (o1.getAge() > o2.getAge()) {
+					return 1;
+				}
+				if (o1.getAge() == o2.getAge()) {
+					return 0;
+				}
+				return -1;
+			}
+		});
+
+		System.out.println("排序后：" + userList);
+	}
+	
+	//生成[18,60)的随机数
+	public static int getRandomNum() {
+		int number = new Random().nextInt(60) + 18;
+		return number;
+
+	}
+
+}

@@ -1,0 +1,137 @@
+//建立用户实体类
+package com.java.bean;
+
+public class User {
+
+	private String id;
+	private String username;
+	private String password;
+	private String weixin;
+	private String email;
+	private String phonenum;
+	private int money;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getWeixin() {
+		return weixin;
+	}
+
+	public void setWeixin(String weixin) {
+		this.weixin = weixin;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
+
+	public String getPhonenum() {
+		return phonenum;
+	}
+
+	public void setPhonenum(String phonenum) {
+		this.phonenum = phonenum;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+}
+
+
+
+//接口
+package com.java.mapper;
+
+import java.util.List;
+
+public interface Dao<T,ID> {
+	
+	public void create(T t);
+	public void delete(ID id);
+	public void update(T t);
+	
+	public T find_one(ID id);
+	public List<T> getAll(String con);
+	
+}
+
+
+package com.java.mapper;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.java.bean.User;
+
+public interface UserMapper extends Dao<User,String> {
+	
+	public User checkLogin(@Param("weixine")String weixin,@Param("password")String password);
+	public User checkNum(String tel);
+}
+
+ 
+ 
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.MyUserMapper">
+ 
+ <insert id="create" parameterType="user" >
+		INSERT INTO MY_USER(ID,USERNAME,PASSWORD,WEIXIN,EMAIL,PHONENUM,MONEY)
+		VALUES (#{id},#{username},#{password},#{weixin},#{email},#{phonenum},#{money})
+	</insert>
+	 
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM MY_USER 
+		WHERE ID=#{id}
+	</delete>
+ 	
+ 	<update id="update" parameterType="user">
+ 		UPDATE MY_USER  SET USERNAME=#{username},PASSWORD=#{password},weixin=#{weixin},EMAIL=#{email},PHONENUM=#{phonenum},
+ 		WHERE ID=#{id}
+ 	</update> 
+ 	
+ 	<select id="getAll"  resultType="user">
+ 		SELECT * FROM MY_USER 
+ 	</select>
+ 	
+ 	<select id="find_one" parameterType="String" resultType="user">
+ 		SELECT * FROM MY_USER WHERE USER_ID=#{id}
+ 	</select>
+ 
+ </mapper>
