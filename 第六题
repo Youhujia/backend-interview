@@ -1,0 +1,112 @@
+package com.java.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.java.bean.User;
+import com.java.service.UserService;
+
+@Controller
+public class UserController {
+	@Autowired
+	private UserService userService;
+
+	@RequestMapping("/user/toLogin.do")
+	public ModelAndView toLodin() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("user/login");
+		return mav;
+	}
+
+	// 跳转到注册页面
+	@RequestMapping("/user/toRegister.do")
+	public ModelAndView toRegister() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("user/register");
+		return mav;
+	}
+
+	// 进行注册操作
+	@RequestMapping("/user/register.do")
+	public ModelAndView register(User user) {
+		ModelAndView mav = new ModelAndView();
+		userService.add(user);
+		mav.setViewName("user/list");
+		return mav;
+	}
+
+	// 跳转到微信登录
+	@RequestMapping("/user/loginbywx.do")
+	public ModelAndView loginbywx() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("user/loginbywx");
+
+		return mav;
+	}
+
+	// 跳转到电话登录
+	@RequestMapping("/user/loginbytel.do")
+	public ModelAndView loginbytel() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("loginbytel");
+		return mav;
+	}
+
+	// 微信进行登录
+	@RequestMapping("/user/toList1.do")
+	public ModelAndView toList1(User user, HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		User user1 = userService.checkLogin(user.getWeixin(), user
+				.getPassword());
+		if (user1 != null) {
+			mav.setViewName("user/list");
+
+		} else {
+			String s = "微信号不存在，或者密码错误";
+			req.setAttribute("str", s);
+			mav.setViewName("user/loginbywx");
+		}
+
+		return mav;
+	}
+
+	// 电话号进行登录
+	@RequestMapping("/user/tocheck.do")
+	public ModelAndView tocheck2(HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		ModelAndView mav = new ModelAndView();
+		String tel = req.getParameter("tel");
+		req.setAttribute("tel", tel);
+
+		// 产生随机数，代替手机验证码
+		String num = "" + (int) Math.random();
+		req.setAttribute("num", num);
+
+		mav.setViewName("user/check");
+		return mav;
+	}
+
+	// 进行短信验证
+	@RequestMapping("/user/tolist.do")
+	public ModelAndView tolist(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+
+		String s1 = req.getParameter("s1");
+		String s2 = req.getParameter("s2");
+		if (s1.equals(s2)) {
+			mav.setViewName("user/list");
+		} else {
+			mav.setViewName("user/loginbytel");
+		}
+		return mav;
+	}
+
+}
